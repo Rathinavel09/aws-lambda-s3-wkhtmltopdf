@@ -17,7 +17,15 @@ const wkhtmltopdfOptions = {
 	footerRight: process.env['footer_right'] || '',
 	zoom: process.env['page_zoom'] || 1,
 	disableJavascript: ( String(process.env['disable_javascript']).toLowerCase() === 'true' ),
-	printMediaType: ( String(process.env['print_media_type']).toLowerCase() === 'true' ) 
+	printMediaType: ( String(process.env['print_media_type']).toLowerCase() === 'true' ),
+
+	enableForms: ( String(process.env['enable_forms']).toLowerCase() === 'true' ),
+	disableExternalLinks: ( String(process.env['disable_external_links']).toLowerCase() === 'true' ),
+	noBackground: ( String(process.env['no_background']).toLowerCase() === 'true' ),
+	noImages: ( String(process.env['no_images']).toLowerCase() === 'true' ),
+	grayscale: ( String(process.env['grayscale']).toLowerCase() === 'true' ),
+
+	disableLocalFileAccess: true // Non-configurable
 }
 
 process.env['PATH'] = process.env['PATH'] + ':' + process.env['LAMBDA_TASK_ROOT'];
@@ -25,6 +33,7 @@ process.env['PATH'] = process.env['PATH'] + ':' + process.env['LAMBDA_TASK_ROOT'
 const s3 = new AWS.S3();
 
 
+console.info('Initializing', JSON.stringify(wkhtmltopdfOptions, null, 2));
 exports.handler = function(event, context, callback) {
 	const bucket = event.Records[0].s3.bucket.name;
 	const key = event.Records[0].s3.object.key;
