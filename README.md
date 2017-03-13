@@ -2,8 +2,7 @@
 Convert S3-website HTML to PF using Webkit (QtWebKit) on AWS Lambda.
 
 ## Required permissions
-Permissions required to properly function. 
-* `s3:GetBucketLocation` - Determine what region the bucket exists in
+Permissions required to properly function.
 * `s3:PutObject` - Upload the output PDF to the bucket
 * `s3:PutObjectTagging` - Set tags on the uploaded PDF
 
@@ -74,28 +73,19 @@ All configuration is handled through **Environment variables** on the **AWS Mana
 2. Under IAM, click **Policies** in the left navigation pane
 3. Click **Create Policy** button
 4. Select **Create Your Own Policy**
-  1. **Policy Name** - Enter the name of the policy (e.g. "s3-bucketLocation-pdfUpload-policy")
+  1. **Policy Name** - Enter the name of the policy (e.g. "s3-pdfUpload-policy")
   2. **Policy Document** - Use the policy document below
   3. Click **Create Policy** button
 5. Click **Roles** in the left navigation pane
 6. Choose the Lambda Role we created earlier (e.g. "s3html-to-pdf-lambda-role")
   1. Click **Attach Policy** button on the **Permissions** tab
-  2. Select the policy we just created (e.g. "s3-bucketLocation-pdfUpload-policy")
+  2. Select the policy we just created (e.g. "s3-pdfUpload-policy")
   3. Click **Attach Policy** button
 
 ```json
 {
     "Version": "2012-10-17",
     "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:GetBucketLocation"
-            ],
-            "Resource": [
-                "arn:aws:s3:::*"
-            ]
-        },
         {
             "Effect": "Allow",
             "Action": [
